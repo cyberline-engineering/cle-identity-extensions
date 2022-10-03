@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Version>0.2.0</Version>
+
+	  <EmbedAllSources>true</EmbedAllSources>
+	  <IncludeSymbols>true</IncludeSymbols>
+	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+	  <Title>Cle.Identity.Extensions</Title>
+	  <Description>Cle identity extensions</Description>
+	  <AssemblyTitle>Cle.Identity.Extensions</AssemblyTitle>
+	  <Product>Cle.Identity.Extensions</Product>
+	  <Company>Cyberline Engineering</Company>
+	  <Authors>Den</Authors>
+	  <Owners>Cyberline Engineering</Owners>
+	  <Copyright>Cyberline Engineering, 2019‒2022</Copyright>
+	  <PackageId>Cle.Identity.Extensions</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="6.0.0" />
+    <PackageReference Include="OpenIddict.Validation.AspNetCore" Version="3.1.1" />
+    <PackageReference Include="OpenIddict.Validation.SystemNetHttp" Version="3.1.1" />
+    <PackageReference Include="Polly" Version="7.2.3" />
+  </ItemGroup>
+
+</Project>
