@@ -8,9 +8,21 @@ using Microsoft.Extensions.Logging;
 
 namespace Cle.Identity.Extensions
 {
+    /// <summary>
+    /// Identity Service HttpClient Extensions
+    /// </summary>
     public static class HttpClientExtensions
     {
-        public static async Task<AccessToken> Authorize(this HttpClient httpClient, IdentityOAuthConfig authConfig, ClientCredentials credentials, ILogger logger, params string[] scopes)
+        /// <summary>
+        /// Authorize 
+        /// </summary>
+        /// <param name="httpClient"></param>
+        /// <param name="authConfig"></param>
+        /// <param name="credentials"></param>
+        /// <param name="logger"></param>
+        /// <param name="scopes"></param>
+        /// <returns></returns>
+        public static async Task<AccessToken?> Authorize(this HttpClient httpClient, IdentityOAuthConfig authConfig, ClientCredentials credentials, ILogger logger, params string[]? scopes)
         {
             logger.LogInformation("Authorize cle identity. Endpoint: {endpoint}", authConfig.Endpoint);
 
@@ -41,10 +53,25 @@ namespace Cle.Identity.Extensions
             return accessToken;
         }
 
-        public static async Task<AccessToken> RefreshToken(this HttpClient httpClient, IdentityOAuthConfig authConfig,
+        /// <summary>
+        /// Refresh token
+        /// </summary>
+        /// <param name="httpClient"></param>
+        /// <param name="authConfig"></param>
+        /// <param name="accessToken"></param>
+        /// <param name="logger"></param>
+        /// <param name="scopes"></param>
+        /// <returns></returns>
+        public static async Task<AccessToken?> RefreshToken(this HttpClient httpClient, IdentityOAuthConfig authConfig,
             AccessToken accessToken, ILogger logger, params string[] scopes)
         {
             logger.LogInformation("Refresh Token cle identity. Endpoint: {endpoint}", authConfig.Endpoint);
+
+            if (accessToken.RefreshToken == default)
+            {
+                logger.LogError("Need refresh token");
+                return default;
+            }
 
             using var request = new RefreshTokenRequest(authConfig.Endpoint, accessToken.RefreshToken, scopes);
             using var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)

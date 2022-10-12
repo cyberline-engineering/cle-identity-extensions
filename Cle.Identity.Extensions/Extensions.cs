@@ -13,6 +13,9 @@ using OpenIddict.Validation.SystemNetHttp;
 
 namespace Cle.Identity.Extensions
 {
+    /// <summary>
+    /// Multicartshop Identity Service Extensions
+    /// </summary>
     public static class Extensions
     {
         internal static readonly JsonSerializerOptions SerializerOptions =
@@ -22,8 +25,15 @@ namespace Cle.Identity.Extensions
                 Converters = { new JsonStringEnumConverter() }
             };
 
+        /// <summary>
+        /// Add Identity Services
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <param name="authorizationConfigure"></param>
+        /// <returns></returns>
         public static OpenIddictBuilder AddCleIdentity(this IServiceCollection services, IConfiguration configuration,
-            Action<AuthorizationOptions> authorizationConfigure = default)
+            Action<AuthorizationOptions>? authorizationConfigure = default)
         {
             services.AddHttpClient(typeof(OpenIddictValidationSystemNetHttpOptions).Assembly.GetName().Name)
                 .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
@@ -82,6 +92,11 @@ namespace Cle.Identity.Extensions
                 });
         }
 
+        /// <summary>
+        /// Use Identity
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
         public static IApplicationBuilder UseCleIdentity(this IApplicationBuilder app)
         {
             return app
@@ -89,6 +104,12 @@ namespace Cle.Identity.Extensions
                 .UseAuthorization();
         }
 
+        /// <summary>
+        /// Add Identity Client
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static IServiceCollection AddCleIdentityClient(this IServiceCollection services,
             IConfiguration configuration)
         {
@@ -100,6 +121,12 @@ namespace Cle.Identity.Extensions
             return services;
         }
 
+        /// <summary>
+        /// Add Access Token Accessor for service-to-service communication
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static IServiceCollection AddIntrospectionSecurityTokenAccessor(this IServiceCollection services,
             IConfiguration configuration)
         {
@@ -120,6 +147,11 @@ namespace Cle.Identity.Extensions
             return services;
         }
 
+        /// <summary>
+        /// Add Access Token Accessor for customer-to-service communication
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         public static IServiceCollection AddHttpContextSecurityTokenAccessor(this IServiceCollection services)
         {
             services.AddTransient<HttpContextSecurityTokenAccessor>();
@@ -127,6 +159,12 @@ namespace Cle.Identity.Extensions
             return services;
         }
 
+        /// <summary>
+        /// Use Cle Identity Client with custom Access Token Accessor
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="builder"></param>
+        /// <returns></returns>
         public static IHttpClientBuilder UseCleIdentityClient<T>(this IHttpClientBuilder builder) where T : ISecurityTokenAccessor
         {
             builder.Services.AddTransient<AuthenticatingHandler<T>>();

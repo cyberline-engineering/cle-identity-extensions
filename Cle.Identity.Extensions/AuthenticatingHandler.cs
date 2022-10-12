@@ -12,14 +12,23 @@ using Polly.Retry;
 
 namespace Cle.Identity.Extensions
 {
+    /// <summary>
+    /// ASP.NET Core Middleware Handler that process Unauthorized (Http Code 401) response and auto OAuth Authenticate 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class AuthenticatingHandler<T> : DelegatingHandler where T : ISecurityTokenAccessor
     {
         private readonly T securityTokenAccessor;
-        private IAccessToken accessToken;
-        private AuthenticationHeaderValue authenticationHeader;
+        private IAccessToken? accessToken;
+        private AuthenticationHeaderValue? authenticationHeader;
         private readonly AsyncRetryPolicy<HttpResponseMessage> policy;
         private readonly ILogger<AuthenticatingHandler<T>> logger;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="securityTokenAccessor"></param>
+        /// <param name="logger"></param>
         public AuthenticatingHandler(T securityTokenAccessor, ILogger<AuthenticatingHandler<T>> logger)
         {
             this.securityTokenAccessor = securityTokenAccessor;
@@ -30,6 +39,12 @@ namespace Cle.Identity.Extensions
                 .RetryAsync(1, async (response, _) => { await Authenticate(); });
         }
 
+        /// <summary>
+        /// Override SendAsync and process Unauthorized response
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             // Request an access token if we don't have one yet or if it has expired.

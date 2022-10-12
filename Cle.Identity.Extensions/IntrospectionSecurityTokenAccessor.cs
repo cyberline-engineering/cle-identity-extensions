@@ -5,6 +5,9 @@ using Microsoft.Extensions.Options;
 
 namespace Cle.Identity.Extensions
 {
+    /// <summary>
+    /// Get access token using client credential grant flow
+    /// </summary>
     public class IntrospectionSecurityTokenAccessor: ISecurityTokenAccessor
     {
         private readonly HttpClient httpClient;
@@ -12,6 +15,13 @@ namespace Cle.Identity.Extensions
         private readonly ILogger<IntrospectionSecurityTokenAccessor> logger;
         private readonly IOptions<IdentityResourceConfig> resourceOptions;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="httpClient"></param>
+        /// <param name="authOptions"></param>
+        /// <param name="resourceOptions"></param>
+        /// <param name="logger"></param>
         public IntrospectionSecurityTokenAccessor(HttpClient httpClient, IOptions<IdentityOAuthConfig> authOptions,
             IOptions<IdentityResourceConfig> resourceOptions, ILogger<IntrospectionSecurityTokenAccessor> logger)
         {
@@ -21,12 +31,14 @@ namespace Cle.Identity.Extensions
             this.logger = logger;
         }
 
-        public bool ValidateAccessToken(IAccessToken accessToken)
+        /// <inheritdoc />
+        public bool ValidateAccessToken(IAccessToken? accessToken)
         {
-            return accessToken != null && accessToken.ExpiresAt > DateTime.UtcNow;
+            return accessToken != null && accessToken.ExpiresAt > DateTimeOffset.UtcNow - TimeSpan.FromSeconds(10);
         }
 
-        public async Task<IAccessToken> RenewAccessTokenAsync()
+        /// <inheritdoc />
+        public async ValueTask<IAccessToken> RenewAccessTokenAsync()
         {
             var config = resourceOptions.Value;
             var accessToken = await httpClient.Authorize(authOptions.Value, new ClientCredentials()

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>0.2.0</Version>
+    <Version>0.3.0</Version>
 
 	  <EmbedAllSources>true</EmbedAllSources>
 	  <IncludeSymbols>true</IncludeSymbols>
@@ -13,11 +13,32 @@
 	  <Description>Cle identity extensions</Description>
 	  <AssemblyTitle>Cle.Identity.Extensions</AssemblyTitle>
 	  <Product>Cle.Identity.Extensions</Product>
-	  <Company>Cyberline Engineering</Company>
-	  <Authors>Den</Authors>
-	  <Owners>Cyberline Engineering</Owners>
-	  <Copyright>Cyberline Engineering, 2019‒2022</Copyright>
 	  <PackageId>Cle.Identity.Extensions</PackageId>
+
+	  <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+	  <AssemblyName>Cle.Identity.Extensions</AssemblyName>
+	  <OutputType>Library</OutputType>
+	  <AssemblyTitle>Multicartshop Identity Service Extensions</AssemblyTitle>
+	  <RootNamespace>Cle.Identity.Extensions</RootNamespace>
+	  <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cle.Identity.Extensions.xml</DocumentationFile>
+	  <RepositoryUrl>https://github.com/cyberline-engineering/cle-identity-extensions.git</RepositoryUrl>
+	  <RepositoryType>git</RepositoryType>
+	  <PackageReleaseNotes></PackageReleaseNotes>
+	  <VersionPrefix>0.1.0</VersionPrefix>
+	  <EmbedAllSources>true</EmbedAllSources>
+	  <IncludeSymbols>true</IncludeSymbols>
+	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	  <Authors>Cyberline Engineering, Denis Porotikov, cmgt</Authors>
+	  <Company>Cyberline Engineering</Company>
+	  <Copyright>Cyberline Engineering, Multicartshop</Copyright>
+	  <Description>HttpClient extensions for Multicartshop Identity Service</Description>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <PackageProjectUrl>https://github.com/cyberline-engineering/cle-identity-extensions</PackageProjectUrl>
+	  <PackageTags>Multicartshop; Cyberline Engineering</PackageTags>
+	  <Nullable>enable</Nullable>
+
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,5 +50,12 @@
     <PackageReference Include="OpenIddict.Validation.SystemNetHttp" Version="3.1.1" />
     <PackageReference Include="Polly" Version="7.2.3" />
   </ItemGroup>
+
+	<ItemGroup>
+		<None Include="../README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
 </Project>

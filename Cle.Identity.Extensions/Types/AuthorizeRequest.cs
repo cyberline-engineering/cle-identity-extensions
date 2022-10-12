@@ -2,7 +2,7 @@
 {
     class AuthorizeRequest: HttpRequestMessage
     {
-        public AuthorizeRequest(string host, ClientCredentials credentials, params string[] scopes): base(HttpMethod.Post, $"{host}/api/connect/token")
+        public AuthorizeRequest(string host, ClientCredentials credentials, params string[]? scopes): base(HttpMethod.Post, $"{host}/api/connect/token")
         {
             Content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
