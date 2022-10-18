@@ -13,7 +13,7 @@
 	  <Description>Cle identity extensions</Description>
 	  <AssemblyTitle>Cle.Identity.Extensions</AssemblyTitle>
 	  <Product>Cle.Identity.Extensions</Product>
-	  <PackageId>Cle.Identity.Extensions</PackageId>
+	  <PackageId>Cybering.Identity.Extensions</PackageId>
 
 	  <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 	  <AssemblyName>Cle.Identity.Extensions</AssemblyName>
